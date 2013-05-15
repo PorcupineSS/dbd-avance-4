@@ -1,0 +1,27 @@
+-- *************************************************************************
+--                                                     2013_1_A4_Gn_SQL.SQL
+-- *************************************************************************
+-- Versión para MS SQL Server 2005 o 2012
+-- *************************************************************************
+--  Sustentación Avance 4 - Mayo 15 / 2013
+--  Curso de Diseño de Bases de Datos - Grupo de trabajo No. ___
+-- *************************************************************************
+-- Participantes:              <- Escritos en orden alfabético por apellido
+--    Nombre completo
+--    Nombre completo
+--    Nombre completo
+--    Nombre completo
+--    Nombre completo
+-- *************************************************************************
+-- Historial de las actualizaciones:
+--     Autor, fecha, hora, breve descripción
+--     Autor, fecha, hora, breve descripción
+--     Autor, fecha, hora, breve descripción
+--     Autor, fecha, hora, breve descripción
+-- *************************************************************************
+--  Descripción del objetivo de este script 
+-- *************************************************************************
+--  Comandos sql:
+--      Bien presentados, 
+--      Legibles y
+--      Documentados apropiadamente

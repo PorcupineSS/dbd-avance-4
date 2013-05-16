@@ -105,7 +105,9 @@ create table DIRECTORIO
    IDESTU               VARCHAR2(11),
    NUMTELEFONO          VARCHAR2(10)         not null,
    NUMCELULAR           VARCHAR2(10)         not null,
-   constraint PK_DIRECTORIO primary key (IDTEL)
+   constraint PK_DIRECTORIO primary key (IDTEL),
+   constraint TELEFONO_VALID CHECK (NUMTELEFONO LIKE '[5][7][1245678]%'),
+   constraint CELULAR_VALID CHECK (NUMCELULAR LIKE '[3][0][012]%' OR NUMCELULAR LIKE '[3][1][01256]%')
 );
 
 /*==============================================================*/
@@ -137,8 +139,13 @@ create table ESTUDIANTES
    PROGESTU             VARCHAR2(40)         not null,
    ESTADOCIVILESTU      VARCHAR2(11)         not null,
    constraint PK_ESTUDIANTES primary key (IDESTU),
-   constraint AK_IDCODESTU_ESTUDIAN unique (CODESTU)
-);
+   constraint AK_IDCODESTU_ESTUDIAN unique (CODESTU),
+   constraint IDESTU_NUMERIC CHECK (IDESTU LIKE '[0-9]%'),
+   constraint FECHANACVALID CHECK (FECHANACIMIENTOESTU < SYSDATE),
+   constraint FECHAINGRESOPVALID CHECK (FECHAINGRESOUESTU < SYSDATE),
+   constraint GENEROESTUVALID CHECK (GENEROESTU IN ('M','m', 'F','f')),
+   constraint ESTCIVILESTUVALID CHECK (ESTADOCIVILESTU IN ('Soltero', 'Casado', 'Viudo', 'Divorciado'))
+   );
 
 /*==============================================================*/
 /* Table: INSCRIPCION                                           */
@@ -180,8 +187,15 @@ create table PROFESORES
    FECHAGRADOPROFE      DATE                 not null,
    FECHAINGRESOUPROFE   DATE                 not null,
    ESTADOCIVILPROFE     VARCHAR2(11)         not null,
-   constraint PK_PROFESORES primary key (IDPROFE)
-);
+   constraint PK_PROFESORES primary key (IDPROFE),
+   constraint IDPROFE_NUMERIC CHECK (IDPROFE LIKE '[0-9]%'),
+   constraint FECHANACPROFVALID CHECK (FECHANACIMIENTOPROFE < SYSDATE),
+   constraint FECHANACMENORGRAD CHECK (FECHANACIMIENTOPROFE < FECHAGRADOPROFE),
+   constraint FECHAINGRESOPVALID CHECK (FECHAINGRESOUPROFE < SYSDATE),
+   constraint FECHAINGRESOPEXP CHECK (SYSDATE-FECHAGRADOPROFE >= 4),
+   constraint GENEROPROFEVALID CHECK (GENEROPROFE IN ('M','m', 'F','f')),
+   constraint ESTCIVILPROFEVALID CHECK (ESTADOCIVILPROFE IN ('Soltero', 'Casado', 'Viudo', 'Divorciado'))
+   );
 
 alter table ASIGNATURAS
    add constraint FK_ASIGNATU_DICTA_PROFESOR foreign key (IDPROFE)

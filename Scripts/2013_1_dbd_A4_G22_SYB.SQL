@@ -1,8 +1,162 @@
+-- *************************************************************************
+--                                                     2013_1_A4_Gn_SYB.SQL
+-- *************************************************************************
+-- Versión para Sybase 15
+-- *************************************************************************
+--  Sustentación Avance 4 - Mayo 15 / 2013
+--  Curso de Diseño de Bases de Datos - Grupo de trabajo No. 22 
+-- *************************************************************************
+-- Participantes:              <- Escritos en orden alfabético por apellido
+--    CORTÉS HERNÁNDEZ SERGIO ANDRÉS, 258006
+--    LANCHEROS PINTO CARLOS DUVAN, 258021
+--    RODRÍGUEZ PORTELA JOHAN DAVID, 258145
+--    ROZO BAUTISTA JEISSON DAVID, 257974
+--    VERGARA VARGAS JEISSON ANDRÉS, 258064
+-- *************************************************************************
+-- Historial de las actualizaciones:
+--     Autor, fecha, hora, breve descripción
+--     Autor, fecha, hora, breve descripción
+--     Autor, fecha, hora, breve descripción
+--     Autor, fecha, hora, breve descripción
+-- *************************************************************************
+--  Descripción del objetivo de este script 
+-- *************************************************************************
+--  Comandos sql:
+--      Bien presentados, 
+--      Legibles y
+--      Documentados apropiadamente
+
 /*==============================================================*/
 /* DBMS name:      Sybase AS Enterprise 15.0                    */
-/* Created on:     15/05/2013 09:07:43 p.m.                     */
+/* Created on:     15/05/2013 10:34:54 p.m.                     */
 /*==============================================================*/
 
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_DELETE_ASIG')
+            and   type = 'TR')
+   drop trigger TRIGER_DELETE_ASIG
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_INSERT_ASIG')
+            and   type = 'TR')
+   drop trigger TRIGER_INSERT_ASIG
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_UPDATE_ASIG')
+            and   type = 'TR')
+   drop trigger TRIGER_UPDATE_ASIG
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_DELETE_CTRL')
+            and   type = 'TR')
+   drop trigger TRIGER_DELETE_CTRL
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_INSERT_CTRL')
+            and   type = 'TR')
+   drop trigger TRIGER_INSERT_CTRL
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_UPDATE_CTRL')
+            and   type = 'TR')
+   drop trigger TRIGER_UPDATE_CTRL
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_DELETE_DIRC')
+            and   type = 'TR')
+   drop trigger TRIGER_DELETE_DIRC
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_INSERT_DIRC')
+            and   type = 'TR')
+   drop trigger TRIGER_INSERT_DIRC
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_UPDATE_DIRC')
+            and   type = 'TR')
+   drop trigger TRIGER_UPDATE_DIRC
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_DELETE_ESTU')
+            and   type = 'TR')
+   drop trigger TRIGER_DELETE_ESTU
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_INSERT_ESTU')
+            and   type = 'TR')
+   drop trigger TRIGER_INSERT_ESTU
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_UPDATE_ESTU')
+            and   type = 'TR')
+   drop trigger TRIGER_UPDATE_ESTU
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_DELETE_INSC')
+            and   type = 'TR')
+   drop trigger TRIGER_DELETE_INSC
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_INSERT_INSC')
+            and   type = 'TR')
+   drop trigger TRIGER_INSERT_INSC
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_UPDATE_INSC')
+            and   type = 'TR')
+   drop trigger TRIGER_UPDATE_INSC
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_DELETE_PROFE')
+            and   type = 'TR')
+   drop trigger TRIGER_DELETE_PROFE
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_INSERT_PROFE')
+            and   type = 'TR')
+   drop trigger TRIGER_INSERT_PROFE
+go
+
+if exists (select 1
+            from  sysobjects
+            where id = object_id('TRIGER_UPDATE_PROFE')
+            and   type = 'TR')
+   drop trigger TRIGER_UPDATE_PROFE
+go
 
 if exists (select 1 
             from  sysobjects c 
@@ -228,8 +382,8 @@ create table ESTUDIANTES (
    NOMBRECOMPLETOESTU   varchar(40)                    not null,
    DIRECCIONESTU        varchar(25)                    null,
    GENEROESTU           char(1)                        not null,
-   FECHANACIMIENTOESTU  date                           not null,
-   FECHAINGRESOUESTU    date                           not null,
+   FECHABBNACIMIENTOESTU  date                           not null,
+   FECHABBINGRESOUESTU    date                           not null,
    CODESTU              int                            not null,
    PROGESTU             varchar(40)                    not null,
    ESTADOCIVILESTU      varchar(11)                    not null,
@@ -275,9 +429,9 @@ create table PROFESORES (
    SUELDOPROFE          money                          null,
    DIRECCIONPROFE       varchar(20)                    null,
    GENEROPROFE          char(1)                        not null,
-   FECHANACIMIENTOPROFE date                           not null,
-   FECHAGRADOPROFE      date                           not null,
-   FECHAINGRESOUPROFE   date                           not null,
+   FECHABBNACIMIENTOPROFE date                           not null,
+   FECHABBGRADOPROFE      date                           not null,
+   FECHABBINGRESOUPROFE   date                           not null,
    ESTADOCIVILPROFE     varchar(11)                    not null,
    constraint PK_PROFESORES primary key nonclustered (IDPROFE)
 )
@@ -307,4 +461,274 @@ alter table INSCRIPCION
    add constraint FK_INSCRIPC_INSCRIPCI_ASIGNATU foreign key (CODASIG)
       references ASIGNATURAS (CODASIG)
 go
+
+
+create TRIGGER triger_delete_asig on ASIGNATURAS for delete as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("Asignaturas", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Delete")
+end
+go
+
+
+create TRIGGER triger_insert_asig on ASIGNATURAS for insert as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("Asignaturas", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Insert")
+end
+go
+
+
+create TRIGGER triger_update_asig on ASIGNATURAS for update as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("Asignaturas", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Update")
+end
+go
+
+
+create TRIGGER triger_delete_ctrl on BITACORA for delete as
+begin
+    INSERT INTO CONTROLB (IPC, IDMAQC, IDUSUARIOC, TIPOOPERC, FECHACB)
+    VALUES ( 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    "Delete",    
+    getdate())
+end
+go
+
+
+create TRIGGER triger_insert_ctrl on BITACORA for insert as
+begin
+    INSERT INTO CONTROLB (IPC, IDMAQC, IDUSUARIOC, TIPOOPERC, FECHACB)
+    VALUES ( 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    "Insert",    
+    getdate())
+end
+go
+
+
+create TRIGGER triger_update_ctrl on BITACORA for update as
+begin
+    INSERT INTO CONTROLB (IPC, IDMAQC, IDUSUARIOC, TIPOOPERC, FECHACB)
+    VALUES ( 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    "Update",    
+    getdate())
+end
+go
+
+
+create TRIGGER triger_delete_dirc on DIRECTORIO for delete as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("Directorio", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Delete")
+end
+go
+
+
+create TRIGGER triger_insert_dirc on DIRECTORIO for insert as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("Directorio", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Insert")
+    end
+go
+
+
+create TRIGGER triger_update_dirc on DIRECTORIO for update as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("Directorio", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Update")
+    end
+go
+
+
+create TRIGGER triger_delete_estu on ESTUDIANTES for delete as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("Estudiantes", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Delete")
+end
+go
+
+
+create TRIGGER triger_insert_estu on ESTUDIANTES for insert as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("Estudiantes", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Insert")
+end
+go
+
+
+create TRIGGER triger_update_estu on ESTUDIANTES for update as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("Estudiantes", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Update")
+end
+go
+
+
+create TRIGGER triger_delete_insc on INSCRIPCION for delete as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("inscripcion", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Delete")
+end
+go
+
+
+create TRIGGER triger_insert_insc on INSCRIPCION for insert as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("inscripcion", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Insert")
+end
+go
+
+
+create TRIGGER triger_update_insc on INSCRIPCION for update as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("inscripcion", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Update")
+end
+go
+
+
+create TRIGGER triger_delete_profe on PROFESORES for delete as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("Profesores", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Delete")
+    end
+go
+
+
+create TRIGGER triger_insert_profe on PROFESORES for insert as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("Profesores", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Insert")
+    end
+go
+
+
+create TRIGGER triger_update_profe on PROFESORES for update as
+begin
+    INSERT INTO BITACORA (TABLA, IP, IDMAQ, IDUSUARIO, FECHAB, TIPOOPER)
+    VALUES ("Profesores", 
+    host_id(), 
+    host_name(),
+    user_name(),  
+    getdate(), 
+    "Update")
+    end
+
+/*==============================================================*/
+/* REGLAS - SYBASE                                         */
+/*==============================================================*/
+
+CREATE RULE regla1 AS @IDESTU <= 11 AND @IDESTU LIKE '[0-9]%';
+sp_bindrule regla1, "ESTUDIANTES.IDEST";
+go
+
+CREATE RULE regla2 AS @IDPROFE <= 11 AND @IDPROFE LIKE '[0-9]%';
+sp_bindrule regla2, "PROFESORES.IDPROFE";
+go
+
+CREATE RULE regla3 AS @NUMTELEFONO LIKE '[5][7][1245678]%';
+sp_bindrule regla3, "DIRECTORIO.NUMTELEFONO";
+go
+
+CREATE RULE regla4 AS @NUMCELULAR LIKE '[3][01][01256]%';
+sp_bindrule regla4, "DIRECTORIO.NUMCELULAR";
+go
+
+CREATE RULE regla9 AS @GENEROESTU IN ('M', 'm', 'F', 'f');
+sp_bindrule regla9, "ESTUDIANTES.GENEROESTU";
+go
+
+CREATE RULE regla10 AS @GENEROPROFE IN ('M', 'm', 'F', 'f');
+sp_bindrule regla10, "PROFESORES.GENEROPROFE";
+go
+
+CREATE RULE regla11 AS @ESTADOCIVILESTU IN ('Soltero', 'Casado', 'Viudo', 'Divorciado');
+sp_bindrule regla11, "ESTUDIANTES.ESTADOCIVILESTU";
+go
+
+CREATE RULE regla12 AS @ESTADOCIVILPROFE IN ('Soltero', 'Casado', 'Viudo', 'Divorciado');
+sp_bindrule regla12, "PROFESORES.ESTADOCIVILPROFE";
+
+
 

@@ -4,14 +4,14 @@
 -- Versión para Sybase 15
 -- *************************************************************************
 --  Sustentación Avance 4 - Mayo 15 / 2013
---  Curso de Diseño de Bases de Datos - Grupo de trabajo No. ___ 
+--  Curso de Diseño de Bases de Datos - Grupo de trabajo No. 22 
 -- *************************************************************************
 -- Participantes:              <- Escritos en orden alfabético por apellido
---    Nombre completo
---    Nombre completo
---    Nombre completo
---    Nombre completo
---    Nombre completo
+--    CORTES HERNANDEZ Sergio Andres
+--    LANCHEROS PINTO Carlos Duvan
+--    RODRIGUEZ PORTELA Johan David
+--    ROZO BAUTISTA Jeisson David
+--    VERGARA VARGAS Jeisson Andres
 -- *************************************************************************
 -- Historial de las actualizaciones:
 --     Autor, fecha, hora, breve descripción
